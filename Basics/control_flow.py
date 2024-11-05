@@ -117,3 +117,82 @@ print("Done!")
 # R to run, or anything else to quit.a
 # Done!
 
+# The use of functions could be seen as structuring logic for reuse, but it its a kind of flow control
+# since information usually flows in and out of them.
+# The evaluate(), evaluate2(), and evaluate3() are simple function definition examples.
+# This is an example of passing a non-keyword variable number of argument to a function...
+# Notice the use of * in front of the identifier in the function definition.
+def add_numbers(*numbers): 
+	"""Returns the sum of two numbers.""" 
+	sum = 0
+	for num in numbers:
+		sum += num
+
+	print(sum)
+
+add_numbers(1,3,5,22,10)
+
+# This is an example of a variable length, keyword arguments function...
+# The values are accessed like a dictionary (by keyword)
+# Notice the use of the ** with the identify in the function definition.
+def compute_area(**dimensions): 
+	"""Returns the area of a square """ 
+	height = dimensions["height"]
+	width = dimensions["width"]
+	depth = dimensions["depth"]
+	return height * width * depth
+
+compute_area(height=10, width=10, depth=10)	
+
+# Saving a function to a varable and calling it later...
+def my_handler(msg):
+    print("In my handler: "+ msg)
+
+def event(handler, event):
+    handler(event)
+
+# Passing my_handler, as opposed to calling it. The event() function will call it.
+event(my_handler, "my_processing")
+
+# If you ever heard of callback functions, this is an example of how they work. There's a prescribed
+# way of asking a parent process to set your event handler so the parent process will use it to customize
+# how some event should be handled. Here's another more advanced demo of using callback functions...
+
+# Application Simulation Object
+class Application:
+    # Dictionary for defined callbacks...
+    _callbacks = {"onClick": None, "onChange": None}
+
+    def __init__(self):
+        pass
+        
+    # Method to set the onClick callback...    
+    def onClick(self, callback):
+        self._callbacks["onClick"] = callback
+    
+    # Method to set the onChange callback...
+    def onChange(self, callback):
+        self._callbacks["onChange"] = callback
+     
+    # Method that calls all the defined callback functions
+    # defined in the _callbacks Dictionary
+    def execCallbacks(self):
+        for key, value in self._callbacks.items():
+            if not value == None:
+                value(key)
+                
+# Custom Code Start Below------------- 
+# onClickTask and onChangeTask are functions that will be passed to the myApp,
+# so creates a means for user of myApp to customize how myApp will behave when it
+# calls its own onclick() and onChange() methods.
+def onClickTask(event):
+    print(f"{event} -> onClickTask")
+    
+def onChangeTask(event):
+    print(f"{event} -> onOnChangeTask")
+
+    
+myApp = Application()       # create a application simulation object	
+myApp.onClick(onClickTask)  # set the custom onClick function in the myApp object
+myApp.onChange(onClickTask) # set the custom onChange function in the myApp object
+myApp.execCallbacks()       # trigger the application to execute the callbacks
