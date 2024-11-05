@@ -175,3 +175,31 @@ print(my_tuple)   # (10,30)
 # 
 print(my_tuple[1]) # 30
 
+# A LOOK AT BITWISE OPERATORS -------------------------------------------------------------------
+# A for loop is used here to more efficiently demonstrate the bitwise operations. See control_flow.py
+# for more examples of loops and conditional branching.
+
+# Left shift (<<)
+for i in range(0, 7):
+    number = 1 << i
+    print(str(number) + "  " + bin(number))
+
+# NOT (~)
+for i in range(0, 7):
+    number = 1 << i
+    not_number = ~number   # NOT number
+    print(str(number) + "  " + str(not_number) + "  " + bin(not_number))
+
+# AND, OR,XOR (&, |, ^)
+for i in range(0, 7):
+    all_bits = 255; # 11111111
+    number = 1 << i # A single bit is shifted left each time through the loop
+    and_number = number & all_bits   # number & 11111111
+    or_number =  number | all_bits   # number | 11111111
+    xor_number = number ^ all_bits   # number ^ 11111111
+	
+    print("AND: " + bin(number) + " & " + bin(all_bits) + " = " + bin(and_number))
+    print("OR: " + bin(number) + " | " + bin(all_bits) + " = " + bin(or_number))
+    print("XOR: "+ bin(number) + " ^ " + bin(all_bits) + " = " + bin(xor_number) + "\n")
+
+
