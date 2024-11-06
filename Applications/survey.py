@@ -4,13 +4,12 @@ This script is an example af a survey processor.
 It process a list of tuples that describe survey questions.
 Each tuple contains the category, the question, and a reference to a validator callback.
 '''
-
 def validate_range(user_input):
     '''
     This validator is look for 1, 2, 3, 4, 5,or x.
     The user's response is returned, else False
     '''
-    # input can be 1 to 5, or "x" to exit...
+    # input must only be 1 character can only 1 to 5, or "x" to exit...
     if len(user_input) == 1 and "12345x".find(user_input) != -1:
         return user_input
     else:
